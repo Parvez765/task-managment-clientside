@@ -58,13 +58,13 @@ const LoginUser = () => {
             <form className='container' onSubmit={handleSubmit}>
                 <div class="row mb-3 d-flex justify-content-center">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-6">
+                    <div class="col-12 col-lg-6">
                     <input type="email" name="email" class="form-control" id="inputEmail3" placeholder='Enter Name'/>
                     </div>
                 </div>
                 <div class="row mb-3 d-flex justify-content-center">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-6">
+                    <div class="col-12 col-lg-6">
                     <input type="password" name="pass" class="form-control" placeholder='Enter Password' id="inputPassword3"/>
                     </div>
                 </div>
