@@ -1,12 +1,15 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, redirect, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const LoginUser = () => {
     
     const [error, setError] = useState("")
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
 
     const { handlelogin, handleGoogle } = useContext(AuthContext)
     
@@ -24,11 +27,13 @@ const LoginUser = () => {
             .then(result => {
                 const user = result.user
                 if (user?.uid) {
+                    
                     Swal.fire(
                         'Good job!',
                         'Login Successfull!',
                         'success'
-                      )
+                        )
+                        navigate(from, {replace: true})
                 }
             })
             .catch(error => setError(error))
@@ -44,7 +49,8 @@ const LoginUser = () => {
                         'Good job!',
                         'Account Created Successfully!',
                         'success'
-                      )
+                        )
+                        navigate(from, {replace: true})
                 }
             })
         .catch(error => setError(error))
@@ -68,7 +74,7 @@ const LoginUser = () => {
                     <input type="password" name="pass" class="form-control" placeholder='Enter Password' id="inputPassword3"/>
                     </div>
                 </div>
-                <p>{error.message}</p>
+                <p className='text-center'>{error.message}</p>
                 <div className="col-12 d-flex justify-content-center">
                     <button type="submit" className="btn btn-primary mb-3">Login</button>
                 </div>

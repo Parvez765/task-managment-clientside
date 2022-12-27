@@ -33,15 +33,13 @@ const Navbar = () => {
                     </button>
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                     <div className="navbar-nav navitem">
-                        <NavLink to="/addtask"  style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                        }>AddTask</NavLink>
-                        <NavLink to="/mytask" style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                        }>MyTask</NavLink>
-                        <NavLink to="/completedtask" style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                        }>CompletedTask</NavLink>
+                            {
+                                user && <>
+                                 <NavLink to="/addtask"  style={({ isActive }) =>isActive ? activeStyle : undefined}>AddTask</NavLink>
+                                    <NavLink to="/mytask" style={({ isActive }) =>isActive ? activeStyle : undefined}>MyTask</NavLink>
+                                    <NavLink to="/completedtask" style={({ isActive }) =>isActive ? activeStyle : undefined}>CompletedTask</NavLink>
+                                </>
+                       }
                        
                             {
                                 user?  <NavLink to="/login"><button className='btn btn-dark' onClick={handleLogOut}>Logout</button></NavLink> :    <NavLink to="/login"><button className='btn btn-primary'>Login</button></NavLink>  

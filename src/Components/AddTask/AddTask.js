@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../Context/AuthProvider';
 
 const AddTask = () => {
+
+    const {user} = useContext(AuthContext)
 
     const handleOnSubmit = event => {
         event.preventDefault()
@@ -24,7 +27,7 @@ const AddTask = () => {
             .then(res => res.json())
             .then(imgdata => {
                 if (imgdata.success || !imgdata.success) {
-                    const taskdetails = { task, taskDescription, imgdata }
+                    const taskdetails = { task, taskDescription, imgdata, email: user?.email }
                     fetch(`http://localhost:5000/task`, {
                         method: "POST",
                         headers: {

@@ -6,6 +6,7 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import MyTaskPage from "../Pages/MyTaskPages/MyTaskPage";
 import Signup from "../Pages/Signup/Signup";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -14,13 +15,13 @@ export const router = createBrowserRouter([
                 path: "/", element: <Home/>
             },
             {
-                path: "/addtask", element: <AddTaskPage/>
+                path: "/addtask", element: <PrivateRoute><AddTaskPage/></PrivateRoute>
             },
             {
-                path: "/mytask", element: <MyTaskPage/>
+                path: "/mytask", element: <PrivateRoute> <MyTaskPage/></PrivateRoute>
             },
             {
-                path: "/completedtask", element: <CompletedTaskPage/>
+                path: "/completedtask", element: <PrivateRoute><CompletedTaskPage/></PrivateRoute>
             },
             {
                 path :"/login", element: <Login/>
