@@ -1,5 +1,6 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Context/AuthProvider';
 
@@ -46,7 +47,13 @@ const SignupUser = () => {
         handleGoogle(googleProvider)
             .then(result => {
                 const user = result.user
-                console.log(user)
+                if (user) {
+                    Swal.fire(
+                        'Good job!',
+                        'Account Created Successfully!',
+                        'success'
+                      )
+                }
             })
         .catch(error => setError(error))
     }
@@ -73,15 +80,18 @@ const SignupUser = () => {
                     <label className="form-label">Confirm Password</label>
                     <input type="password" name="repass" className="form-control" placeholder="ReEnter Password" required/>
                 </div>
-                <div className="col-12">
                 <p>{error.message}</p>
+                <div className="col-12">
                     <button type="submit" className="btn btn-primary">Sign Up</button>
                 </div>
                 <hr />
             </form>
                 <div className="col-12 container">
                     <button type="submit" className="btn btn-primary" onClick={handleGoogleSignIn}>Sign Up With Google</button>
-                </div>
+                 </div>
+            <div className='container'>
+                <Link to="/login"><button className='btn btn-link mt-3'>Already Have An Account?Please Login</button></Link>
+            </div>
         </div>
     );
 };
