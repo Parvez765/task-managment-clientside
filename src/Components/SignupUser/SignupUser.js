@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Context/AuthProvider';
@@ -6,7 +7,9 @@ const SignupUser = () => {
 
     const [error, setError] = useState("")
 
-    const {handleCreateUser} = useContext(AuthContext)
+    const { handleCreateUser, handleGoogle } = useContext(AuthContext)
+    
+    const googleProvider = new GoogleAuthProvider()
 
     const handleOnSubmit = (event) => {
         event.preventDefault()
@@ -36,10 +39,18 @@ const SignupUser = () => {
                       )
                 }
             })
-        .catch(error => setError(error))
-
-       
+           
     }
+
+    const handleGoogleSignIn = () => {
+        handleGoogle(googleProvider)
+            .then(result => {
+                const user = result.user
+                console.log(user)
+            })
+        .catch(error => setError(error))
+    }
+    
 
     return (
         <div>
@@ -66,7 +77,11 @@ const SignupUser = () => {
                 <p>{error.message}</p>
                     <button type="submit" className="btn btn-primary">Sign Up</button>
                 </div>
+                <hr />
             </form>
+                <div className="col-12 container">
+                    <button type="submit" className="btn btn-primary" onClick={handleGoogleSignIn}>Sign Up With Google</button>
+                </div>
         </div>
     );
 };
