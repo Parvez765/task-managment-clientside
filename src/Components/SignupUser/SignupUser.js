@@ -81,15 +81,15 @@ const SignupUser = () => {
                     <input type="password" name="repass" className="form-control" placeholder="ReEnter Password" required/>
                 </div>
                 <p>{error.message}</p>
-                <div className="col-12">
+                <div className="col-12 d-flex justify-content-center">
                     <button type="submit" className="btn btn-primary">Sign Up</button>
                 </div>
                 <hr />
             </form>
-                <div className="col-12 container">
+                <div className="col-12 container d-flex justify-content-center">
                     <button type="submit" className="btn btn-primary" onClick={handleGoogleSignIn}>Sign Up With Google</button>
                  </div>
-            <div className='container'>
+            <div className='container d-flex justify-content-center'>
                 <Link to="/login"><button className='btn btn-link mt-3'>Already Have An Account?Please Login</button></Link>
             </div>
         </div>
