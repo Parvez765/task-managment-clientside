@@ -9,8 +9,9 @@ const AddTask = () => {
         const task = form.task.value
         const taskDescription = form.taskDescription.value
         // console.log(task, taskDescription)
+        const addedTask = {task}
         const image = form.img.files[0]
-
+        
         const imgbbKey = process.env.REACT_APP_imgbbKey
 
         const formData = new FormData()
@@ -45,8 +46,37 @@ const AddTask = () => {
                     })
                 }
             })
-        form.reset()
+        
     }
+    const handleOnKeyDown = event => {
+
+        const task = event.target.value
+        console.log(task)
+        const addTask = {task}
+
+        if (event.key === "Enter") {
+            fetch(`http://localhost:5000/task`, {
+                method: "POST",
+                headers: {
+                    "content-type" : "application/json"
+                },
+                body : JSON.stringify(addTask)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.acknowledged) {
+                        Swal.fire(
+                            'Task Addedd Successfully!',
+                            'Thank You',
+                            'success'
+                          )
+                   }
+                    
+            })
+        }
+    }
+
 
     return (
         <div>
@@ -54,7 +84,7 @@ const AddTask = () => {
             <form className="row g-3 container mx-auto" onSubmit={handleOnSubmit}>
                 <div className="col-md-6">
                     <label className="form-label">Task Name</label>
-                    <input type="text" name="task" className="form-control" placeholder='Enter Your Task Name' required/>
+                    <input type="text" onKeyDown={handleOnKeyDown} name="task" className="form-control" placeholder='Enter Your Task Name' required/>
                 </div>
                 <div className="col-md-6">
                 <label className="form-label">Upload Images (Optional)</label>
