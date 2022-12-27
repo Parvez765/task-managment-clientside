@@ -1,0 +1,20 @@
+.logo{
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+}
+
+.navcontainer{
+    align-items: center;
+    justify-items: center;
+}
+
+.navitem{
+    align-items: center;
+}
+
+.navitem a {
+    text-decoration: none;
+    margin-right: 15px;
+    
+}
