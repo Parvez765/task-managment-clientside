@@ -28,7 +28,7 @@ const Navbar = () => {
                         isActive ? activeStyle : undefined
                         }>CompletedTask</NavLink>
                        
-                       
+                       <NavLink to="/login"><button className='btn btn-primary'>Login</button></NavLink>
                         
                     </div>
                 </div>
