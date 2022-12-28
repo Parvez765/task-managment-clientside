@@ -71,6 +71,34 @@ const CompletedTask = () => {
     }
 
 
+    const handleOnSubmit = event => {
+        event.preventDefault()
+        const form = event.target
+        const comment = form.comment.value
+        const addComment = { comment }
+        
+
+        fetch(`http://localhost:5000/taskcomment`, {
+            method: "POST",
+            headers: {
+                "content-type" : "application/json"
+            },
+            body: JSON.stringify(addComment)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    Swal.fire(
+                        'Great!',
+                        'Comment Added Successfully',
+                        'success'
+                    )
+                    form.reset()
+                }
+            })
+        .catch(err=> console.error(err))
+    }
+
     return (
         <div>
               <div className='text-center'>
@@ -96,7 +124,19 @@ const CompletedTask = () => {
                                             <button className='btn btn-dark' onClick={()=> handleDelete(task._id)}>Delete Task</button>       
                                             <button className='btn btn-primary' onClick={()=> handleNotCompleted(task._id)}>Not Completed</button>
                                     </div>
-                                    </div>
+                                            </div>
+                                            <hr />
+                                            <div>
+                                                <h6 className='text-center commentcontainer'>Add Comment</h6>
+                                                <form onSubmit={handleOnSubmit}>
+                                                    <div className='d-flex justify-content-center p-3'>
+                                                        <textarea name="comment" id="" cols="30" rows="3" placeholder='Enter Comment'></textarea><br/>
+                                                    </div>
+                                                    <div className='d-flex justify-content-center p-3'>
+                                                        <button className='btn btn-primary'>Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                     </div>
                                 </div>
                         
@@ -105,9 +145,7 @@ const CompletedTask = () => {
                     </div>
                 </div>
             </div>
-            <div>
-                <h2 className='text-center commentcontainer'>Add Comment</h2>
-            </div>
+           
         </div>
     );
 };
