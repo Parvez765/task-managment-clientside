@@ -29,7 +29,7 @@ const AddTask = () => {
             .then(res => res.json())
             .then(imgdata => {
                 if (imgdata.success || !imgdata.success) {
-                    const taskdetails = { task, taskDescription, imgdata, email: user?.email }
+                    const taskdetails = { task, taskDescription, imgdata, email: user?.email, isCompleted : false }
                     fetch(`http://localhost:5000/task`, {
                         method: "POST",
                         headers: {
