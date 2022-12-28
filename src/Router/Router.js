@@ -4,6 +4,7 @@ import AddTaskPage from "../Pages/AddTaskPage/AddTaskPage";
 import CompletedTaskPage from "../Pages/CompletedTaskPage/CompletedTaskPage";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import Media from "../Pages/Media/Media";
 import MyTaskPage from "../Pages/MyTaskPages/MyTaskPage";
 import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
@@ -28,6 +29,9 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/signup", element: <Signup/>
+            },
+            {
+                path : "/media", element: <Media/>
             }
         ]
     }

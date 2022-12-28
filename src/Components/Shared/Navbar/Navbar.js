@@ -31,7 +31,8 @@ const Navbar = () => {
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
-                <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                    <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                       
                     <div className="navbar-nav navitem">
                             {
                                 user && <>
@@ -39,7 +40,8 @@ const Navbar = () => {
                                     <NavLink to="/mytask" style={({ isActive }) =>isActive ? activeStyle : undefined}>MyTask</NavLink>
                                     <NavLink to="/completedtask" style={({ isActive }) =>isActive ? activeStyle : undefined}>CompletedTask</NavLink>
                                 </>
-                       }
+                            }
+                            
                        
                             {
                                 user?  <NavLink to="/login"><button className='btn btn-dark' onClick={handleLogOut}>Logout</button></NavLink> :    <NavLink to="/login"><button className='btn btn-primary'>Login</button></NavLink>  

@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const AddTask = () => {
 
-    const {user} = useContext(AuthContext)
-
+    const { user } = useContext(AuthContext)
+    
+ 
     const handleOnSubmit = event => {
         event.preventDefault()
         const form = event.target
@@ -39,6 +41,7 @@ const AddTask = () => {
                         .then(data => {
                             console.log(data)
                             if (data.acknowledged) {
+                               
                                 Swal.fire(
                                     'Task Addedd Successfully!',
                                     'Thank You',
@@ -69,6 +72,7 @@ const AddTask = () => {
                 .then(data => {
                     console.log(data)
                     if (data.acknowledged) {
+                        
                         Swal.fire(
                             'Task Addedd Successfully!',
                             'Thank You',
@@ -83,6 +87,11 @@ const AddTask = () => {
 
     return (
         <div>
+            <div className='text-center'>
+                {
+                    user?.email && <p>Welcome, {user?.email}</p>
+                }
+            </div>
             <h2 className='mt-5 mb-5 text-center'>Add Your Task</h2>
             <form className="row g-3 container mx-auto" onSubmit={handleOnSubmit}>
                 <div className="col-md-6">
@@ -103,6 +112,9 @@ const AddTask = () => {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </div>
             </form>
+                <div className="col-12 container mt-4">
+                  <Link to="/media"><button type="submit" className="btn btn-primary">Go To Media</button></Link>
+                </div>
         </div>
     );
 };
