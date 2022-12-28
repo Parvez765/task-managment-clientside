@@ -6,7 +6,7 @@ const MyTask = () => {
 
     const { user } = useContext(AuthContext)
     
-    const [taskAdded, setTaskAdded] = useState([])
+    const [tasks, setTasks] = useState([])
 
 
     const fetchData = () => {
@@ -14,7 +14,7 @@ const MyTask = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            setTaskAdded(data)
+            setTasks(data)
             
     })
     }
@@ -55,20 +55,26 @@ const MyTask = () => {
             <div className='container mx-auto mt-5'>
                 <div class="row g-3">
                 {
-                    taskAdded?.map(task => task.isCompleted !== true && <>
+                        tasks?.filter(data => data.isCompleted !== true).map(task =>
+                           
                             <div class="col col-lg-4">
                                 <div class="card">
                                
                                 <div class="card-body">
-                                    <h5 class="card-title">{task.task}</h5>
-                                   <button className='btn btn-link'>Update Task</button>
-                                   <button className='btn btn-link'>Delete Task</button>
-                                   <button className='btn btn-primary' onClick={() => handleUpdate(task._id)}>Completed Task</button>
+                                    <h5 class="card-title d-flex justify-content-center">{task.task}</h5>
+                                    <div className='d-flex justify-content-center'>
+                                        <button className='btn btn-link'>Details</button>
+                                        <button className='btn btn-link'>Update Task</button>
+                                        <button className='btn btn-link'>Delete Task</button>
+                                  </div>
+                                <div className='d-flex justify-content-center mt-3'>
+                                        <button className='btn btn-primary' onClick={() => handleUpdate(task._id)}>Completed Task</button>
+                                 </div>
                                 </div>
                                 </div>
                             </div>
                     
-                    </>)
+                    )
                 }
                 </div>
             </div>
