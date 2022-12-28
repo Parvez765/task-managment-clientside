@@ -1,29 +1,46 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Context/AuthProvider';
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { setTasks } from "../../redux/actions/taskActions";
+
 
 const MyTask = () => {
+    
+    // const [tasks, setTasks] = useState([])
 
     const { user } = useContext(AuthContext)
+
     
-    const [tasks, setTasks] = useState([])
-    const navigate = useNavigate()
+    
+    const dispatch = useDispatch();
+    
 
     const fetchData = () => {
+        console.log("called", user?.email)
         fetch(`http://localhost:5000/task/${user?.email}`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            setTasks(data)
+            // setTasks(data)
+            dispatch(setTasks(data))
             
     })
     }
     
 
     useEffect(() => {
-       fetchData()
+        fetchData()
     }, [user?.email])
+
+    const allTasks = useSelector((state) => state);
+    console.log("This is" ,allTasks.alltasks.tasks)
+    
+    const navigate = useNavigate()
+
+   
 
     const handleUpdate = (id) => {
         fetch(`http://localhost:5000/task/${id}`, {
@@ -77,7 +94,7 @@ const MyTask = () => {
             <div className='container mx-auto mt-5'>
                 <div class="row g-3">
                 {
-                        tasks?.filter(data => data.isCompleted !== true).map(task =>
+                        allTasks?.alltasks?.tasks?.filter(data => data.isCompleted !== true).map(task =>
                            
                             <div class="col col-lg-4">
                                 <div class="card">

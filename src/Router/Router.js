@@ -7,6 +7,7 @@ import Login from "../Pages/Login/Login";
 import Media from "../Pages/Media/Media";
 import MyTaskPage from "../Pages/MyTaskPages/MyTaskPage";
 import Signup from "../Pages/Signup/Signup";
+import TaskDetail from "../Pages/TaskDetails/TaskDetail";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
             {
                 path: "/mytask", element: <PrivateRoute> <MyTaskPage/></PrivateRoute>
             },
+            // {
+            //     path: "/mytask/:id",
+            //     element: <TaskDetail />
+            // },
             {
                 path: "/completedtask", element: <PrivateRoute><CompletedTaskPage/></PrivateRoute>
             },
