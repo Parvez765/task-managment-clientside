@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Context/AuthProvider';
 
@@ -7,6 +8,7 @@ const CompletedTask = () => {
     const { user } = useContext(AuthContext)
     
     const [tasks, setTasks] = useState([])
+    const navigate = useNavigate()
 
     
 
@@ -33,6 +35,15 @@ const CompletedTask = () => {
             .then(data => {
                 fetchData(data)
                 console.log(data)
+                if (data.acknowledged) {
+                    Swal.fire(
+                        '',
+                        'Task  Not Completed',
+                        'success'
+                    )
+                    navigate("/mytask")
+                    
+                }
                
             })
         .catch(error => console.error(error))
@@ -47,9 +58,7 @@ const CompletedTask = () => {
                 }
             </div>
 
-            {
-                tasks.length > 0 ? <h2 className='text-center'>Congratulations, You Have Completed {tasks.length}</h2> : <h2 className='text-center'>You Have Completed {tasks.length}</h2>
-            }
+            <h2 className='text-center mt-5 mb-5 fw-bold'>Completed Task</h2>
             <div>
             <div className='container mx-auto mt-5'>
                 <div class="row g-3">
@@ -63,8 +72,7 @@ const CompletedTask = () => {
                                     <h5 class="card-title d-flex justify-content-center">{task.task}</h5>
                                     
                                 <div className='d-flex justify-content-around mt-3'>
-                                        <button className='btn btn-primary'>Completed Task</button>
-                                        <button className='btn btn-primary' onClick={()=> handleNotCompleted(task._id)}>Not Completed</button>
+                                    <button className='btn btn-primary' onClick={()=> handleNotCompleted(task._id)}>Not Completed</button>
                                  </div>
                                 </div>
                                 </div>

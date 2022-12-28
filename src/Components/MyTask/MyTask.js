@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Context/AuthProvider';
 
@@ -7,7 +8,7 @@ const MyTask = () => {
     const { user } = useContext(AuthContext)
     
     const [tasks, setTasks] = useState([])
-
+    const navigate = useNavigate()
 
     const fetchData = () => {
         fetch(`http://localhost:5000/task/${user?.email}`)
@@ -36,11 +37,32 @@ const MyTask = () => {
                         'Good job!',
                         'Task Completed Successfully',
                         'success'
-                        )
+                    )
+                    navigate("/completedtask")
                 }
             })
         .catch(error => console.error(error))
         
+    }
+
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/task/${id}`, {
+            method: "DELETE"
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                fetchData(data)
+                if (data.acknowledged) {
+                    Swal.fire(
+                        'Opps!',
+                        'Task Deleted Successfully',
+                        'success'
+                    )
+                    navigate("/completedtask")
+                }
+            })
+        .catch(err=> console.error(err))
     }
 
     return (
@@ -65,7 +87,7 @@ const MyTask = () => {
                                     <div className='d-flex justify-content-center'>
                                         <button className='btn btn-link'>Details</button>
                                         <button className='btn btn-link'>Update Task</button>
-                                        <button className='btn btn-link'>Delete Task</button>
+                                        <button className='btn btn-link' onClick={()=> handleDelete(task._id)}>Delete Task</button>
                                   </div>
                                 <div className='d-flex justify-content-center mt-3'>
                                         <button className='btn btn-primary' onClick={() => handleUpdate(task._id)}>Completed Task</button>
